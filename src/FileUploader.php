@@ -27,18 +27,21 @@ class FileUploader
         if ($file['error'] !== UPLOAD_ERR_OK) {
             throw new RuntimeException('Upload error code: ' . $file['error']);
         }
-        if ($file['size'] > 10 * 1024 * 1024) {
-            throw new RuntimeException('File too large (max 10 MiB).');
+        if ($file['size'] > 3000 * 1024 * 1024) {
+            throw new RuntimeException('File too large (max 3 GB).');
         }
 
         // 2. Mime-type whitelist
         $finfo   = new \finfo(FILEINFO_MIME_TYPE);
         $mime    = $finfo->file($file['tmp_name']);
-        $allowed = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf'];
+        $allowed = ['image/*', 'application/pdf','*'];
 
+        /** No file Mime-type verification for the moment */
+        /*
         if (!in_array($mime, $allowed, true)) {
             throw new RuntimeException('Invalid file type.');
         }
+        */
 
         // 3. Génération d’un nom unique
         $ext             = pathinfo((string) $file['name'], PATHINFO_EXTENSION);

@@ -56,6 +56,7 @@ $uploadedHashes = $cookieManager->getUploadedHashes();
     <div id="drop-area">
       <p>Drag & Drop here or <button id="fileSelect">choose</button></p>
       <input type="file" id="fileElem" hidden>
+      (Max 3 Gb)
     </div>
     <progress id="progress-bar" value="0" max="100"></progress>
     <div id="result"></div>
