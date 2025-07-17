@@ -1,6 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace App;
+namespace App\Models;
+
+use App\Models\StorageInterface;
+use App\Models\UrlShortener;
 
 use RuntimeException;
 
@@ -31,17 +34,9 @@ class FileUploader
             throw new RuntimeException('File too large (max 3 GB).');
         }
 
-        // 2. Mime-type whitelist
+        // 2. Mime-type detection
         $finfo   = new \finfo(FILEINFO_MIME_TYPE);
-        $mime    = $finfo->file($file['tmp_name']);
-        $allowed = ['image/*', 'application/pdf','*'];
-
-        /** No file Mime-type verification for the moment */
-        /*
-        if (!in_array($mime, $allowed, true)) {
-            throw new RuntimeException('Invalid file type.');
-        }
-        */
+        $mimeType = $finfo->file($file['tmp_name']);
 
         // 3. Génération d’un nom unique
         $ext             = pathinfo((string) $file['name'], PATHINFO_EXTENSION);
@@ -51,7 +46,7 @@ class FileUploader
         $storedPath = $this->storage->save($file['tmp_name'], $destinationName);
 
         // 5. Raccourcissement
-        $shortUrl = $this->shortener->shorten($storedPath);
+        $shortUrl = $this->shortener->shorten($storedPath, $file['name'], $mimeType);
 
         // 6. Cookie tracking
         $hash = basename($shortUrl);

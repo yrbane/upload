@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App;
+namespace App\Models;
 
 /**
  * Manages a cookie storing uploaded file hashes.
@@ -32,6 +32,25 @@ class CookieManager
         setcookie(
             self::COOKIE_NAME,
             json_encode($hashes, JSON_THROW_ON_ERROR),
+            [
+                'expires'  => time() + self::COOKIE_LIFETIME,
+                'path'     => '/',
+                'httponly' => true,
+                'samesite' => 'Lax',
+            ]
+        );
+    }
+
+    /**
+     * Remove a hash and reset the cookie.
+     */
+    public function removeHash(string $hashToRemove): void
+    {
+        $hashes = $this->getUploadedHashes();
+        $hashes = array_filter($hashes, fn($hash) => $hash !== $hashToRemove);
+        setcookie(
+            self::COOKIE_NAME,
+            json_encode(array_values($hashes), JSON_THROW_ON_ERROR), // Re-index array
             [
                 'expires'  => time() + self::COOKIE_LIFETIME,
                 'path'     => '/',

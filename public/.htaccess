@@ -1,4 +1,4 @@
 RewriteEngine On
-
-# /f/{hash} → f.php?hash={hash}
-RewriteRule ^f/([0-9a-f]{12})$ f.php?hash=$1 [L,QSA]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php [L]
