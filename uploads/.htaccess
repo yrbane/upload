@@ -1,0 +1,6 @@
+# Désactive l'exécution de scripts dans ce répertoire
+   Options -ExecCGI
+   RemoveHandler .php .phtml .php3 .phar
+   <FilesMatch "\.(php|phtml|php3|phar)$">
+       Deny from all
+   </FilesMatch>
