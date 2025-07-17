@@ -1,4 +1,12 @@
 <?php declare(strict_types=1);
+
+session_start();
+
+// Génère un token CSRF si inexistant
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 require __DIR__ . '/../vendor/autoload.php';
 
 use App\LocalStorage;
@@ -66,6 +74,10 @@ $uploadedHashes = $cookieManager->getUploadedHashes();
     <?php endif; ?>
   </div>
 
+  <input type="hidden" id="csrfToken" value="<?php echo htmlspecialchars(
+       $_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'
+   ); ?>">
+
   <script>
     const dropArea   = document.getElementById('drop-area');
     const fileElem   = document.getElementById('fileElem');
@@ -101,6 +113,9 @@ $uploadedHashes = $cookieManager->getUploadedHashes();
       };
       const fd = new FormData();
       fd.append('file', file);
+      const csrfToken = document.getElementById('csrfToken').value;
+      fd.append('csrf_token', csrfToken);
+
       xhr.send(fd);
     }
   </script>

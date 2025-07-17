@@ -1,5 +1,16 @@
 <?php declare(strict_types=1);
+session_start();
 header('Content-Type: application/json; charset=UTF-8');
+
+// Vérification CSRF
+if (!isset($_POST['csrf_token']) ||
+    $_POST['csrf_token'] !== $_SESSION['csrf_token']
+) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Token CSRF invalide']);
+    exit;
+}
+
 require __DIR__ . '/../vendor/autoload.php';
 
 use App\LocalStorage;
