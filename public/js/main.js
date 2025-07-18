@@ -43,35 +43,38 @@ const dropArea   = document.getElementById('drop-area');
     }
 
     // Delete functionality
-    document.getElementById('file-list').addEventListener('click', async (e) => {
-        if (e.target.classList.contains('delete-btn')) {
-            const translations = document.getElementById('translations');
-            const confirmMessage = translations.dataset.confirmDelete || 'Are you sure you want to delete this file?';
-            if (!confirm(confirmMessage)) {
-                return;
-            }
-            const hash = e.target.dataset.hash;
-            const csrfToken = document.getElementById('csrfToken').value;
-
-            const response = await fetch('/delete', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `hash=${hash}&csrf_token=${csrfToken}`
-            });
-
-            const result = await response.json();
-
-            if (result.success) {
-                e.target.closest('li').remove();
-            } else {
+    const fileList = document.getElementById('file-list');
+    if (fileList) {
+        fileList.addEventListener('click', async (e) => {
+            if (e.target.classList.contains('delete-btn')) {
                 const translations = document.getElementById('translations');
-                const errorDeleting = translations.dataset.errorDeleting || 'Error deleting file';
-                alert(errorDeleting + ': ' + result.error);
+                const confirmMessage = translations.dataset.confirmDelete || 'Are you sure you want to delete this file?';
+                if (!confirm(confirmMessage)) {
+                    return;
+                }
+                const hash = e.target.dataset.hash;
+                const csrfToken = document.getElementById('csrfToken').value;
+
+                const response = await fetch('/delete', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `hash=${hash}&csrf_token=${csrfToken}`
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    e.target.closest('li').remove();
+                } else {
+                    const translations = document.getElementById('translations');
+                    const errorDeleting = translations.dataset.errorDeleting || 'Error deleting file';
+                    alert(errorDeleting + ': ' + result.error);
+                }
             }
-        }
-    });
+        });
+    }
 
     // Language switching functionality
     const languageSelect = document.getElementById('language-select');
