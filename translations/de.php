@@ -19,6 +19,7 @@ return [
         'uploaded_label' => 'Hochgeladen',
         'error_deleting' => 'Fehler beim Löschen der Datei',
         'picsum_link' => 'Kostenlose Bilder von Picsum',
+        'papirus_link' => 'Icons von Papirus',
         'github_link' => 'Auf GitHub anzeigen',
         'uploaded' => 'Hochgeladen',
         'upload_failed' => 'Upload fehlgeschlagen',

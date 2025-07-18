@@ -19,6 +19,7 @@ return [
         'uploaded_label' => 'تم الرفع',
         'error_deleting' => 'خطأ في حذف الملف',
         'picsum_link' => 'صور مجانية من Picsum',
+        'papirus_link' => 'أيقونات من Papirus',
         'github_link' => 'عرض على GitHub',
         'uploaded' => 'تم الرفع',
         'upload_failed' => 'فشل في الرفع',

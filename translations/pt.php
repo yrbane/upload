@@ -19,6 +19,7 @@ return [
         'uploaded_label' => 'Enviado',
         'error_deleting' => 'Erro ao excluir arquivo',
         'picsum_link' => 'Imagens gratuitas do Picsum',
+        'papirus_link' => 'Ícones do Papirus',
         'github_link' => 'Ver no GitHub',
         'uploaded' => 'Enviado',
         'upload_failed' => 'Falha no envio',

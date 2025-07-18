@@ -23,7 +23,7 @@
   <div class="container">
     <h1><?= htmlspecialchars($translations['app']['title']) ?></h1>
     <div id="drop-area">
-      <p><?= htmlspecialchars($translations['app']['drag_drop']) ?> or <button id="fileSelect" type="button"><?= htmlspecialchars($translations['app']['select_file']) ?></button></p>
+      <p><?= htmlspecialchars($translations['app']['drag_drop']) ?> or <button id="fileSelect" type="button" class="btn-with-icon"><span class="icon icon-upload"></span><?= htmlspecialchars($translations['app']['select_file']) ?></button></p>
       <input type="file" id="fileElem" hidden>
       (Max 3 Gb)
     </div>
@@ -31,7 +31,7 @@
     <div id="result"></div>
 
     <?php if (!empty($uploadedFiles)): ?>
-      <h2><?= htmlspecialchars($translations['app']['my_files']) ?></h2>
+      <h2><span class="icon icon-folder"></span> <?= htmlspecialchars($translations['app']['my_files']) ?></h2>
       <ul id="file-list">
         <?php foreach ($uploadedFiles as $hash => $fileData): ?>
           <li data-hash="<?= htmlspecialchars($hash) ?>">
@@ -48,12 +48,19 @@
 
   <!-- Footer Links -->
   <div class="footer-links">
-    <a href="https://picsum.photos/" target="_blank" class="footer-link footer-left">
-      <?= htmlspecialchars($translations['app']['picsum_link']) ?>
-    </a>
-    <a href="https://github.com/anthropics/claude-code" target="_blank" class="footer-link footer-right">
-      <?= htmlspecialchars($translations['app']['github_link']) ?>
-    </a>
+    <div class="footer-left">
+      <a href="https://picsum.photos/" target="_blank" class="footer-link">
+        <?= htmlspecialchars($translations['app']['picsum_link']) ?>
+      </a>
+      <a href="https://github.com/PapirusDevelopmentTeam/papirus-icon-theme" target="_blank" class="footer-link">
+        <?= htmlspecialchars($translations['app']['papirus_link']) ?>
+      </a>
+    </div>
+    <div class="footer-right">
+      <a href="https://github.com/anthropics/claude-code" target="_blank" class="footer-link">
+        <?= htmlspecialchars($translations['app']['github_link']) ?>
+      </a>
+    </div>
   </div>
 
   <input type="hidden" id="csrfToken" value="<?php echo htmlspecialchars(

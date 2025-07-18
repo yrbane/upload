@@ -19,6 +19,7 @@ return [
         'uploaded_label' => '已上传',
         'error_deleting' => '删除文件错误',
         'picsum_link' => 'Picsum 免费图片',
+        'papirus_link' => 'Papirus 图标',
         'github_link' => '在 GitHub 上查看',
         'uploaded' => '已上传',
         'upload_failed' => '上传失败',

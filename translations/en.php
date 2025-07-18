@@ -19,6 +19,7 @@ return [
         'uploaded_label' => 'Uploaded',
         'error_deleting' => 'Error deleting file',
         'picsum_link' => 'Free Images by Picsum',
+        'papirus_link' => 'Icons by Papirus',
         'github_link' => 'View on GitHub',
         'uploaded' => 'Uploaded',
         'upload_failed' => 'Upload failed',

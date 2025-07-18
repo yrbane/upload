@@ -19,6 +19,7 @@ return [
         'uploaded_label' => 'Caricato',
         'error_deleting' => 'Errore durante l\'eliminazione del file',
         'picsum_link' => 'Immagini gratuite di Picsum',
+        'papirus_link' => 'Icone di Papirus',
         'github_link' => 'Visualizza su GitHub',
         'uploaded' => 'Caricato',
         'upload_failed' => 'Caricamento fallito',
