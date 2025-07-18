@@ -19,7 +19,12 @@ return [
         'uploaded_label' => 'Enviado',
         'error_deleting' => 'Erro ao excluir arquivo',
         'picsum_link' => 'Imagens gratuitas do Picsum',
-        'github_link' => 'Ver no GitHub'
+        'github_link' => 'Ver no GitHub',
+        'uploaded' => 'Enviado',
+        'upload_failed' => 'Falha no envio',
+        'confirm_delete' => 'Tem certeza de que deseja excluir este arquivo?',
+        'error_deleting' => 'Erro ao excluir arquivo',
+        'separator' => ': '
     ],
     'error' => [
         'csrf_invalid' => 'Token CSRF inválido',

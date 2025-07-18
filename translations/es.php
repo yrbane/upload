@@ -19,7 +19,10 @@ return [
         'uploaded_label' => 'Subido',
         'error_deleting' => 'Error al eliminar archivo',
         'picsum_link' => 'Imágenes gratuitas por Picsum',
-        'github_link' => 'Ver en GitHub'
+        'github_link' => 'Ver en GitHub',
+        'uploaded' => 'Subido',
+        'upload_failed' => 'Falló la subida',
+        'separator' => ': '
     ],
     'error' => [
         'csrf_invalid' => 'Token CSRF inválido',

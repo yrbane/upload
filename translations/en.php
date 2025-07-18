@@ -19,7 +19,12 @@ return [
         'uploaded_label' => 'Uploaded',
         'error_deleting' => 'Error deleting file',
         'picsum_link' => 'Free Images by Picsum',
-        'github_link' => 'View on GitHub'
+        'github_link' => 'View on GitHub',
+        'uploaded' => 'Uploaded',
+        'upload_failed' => 'Upload failed',
+        'confirm_delete' => 'Are you sure you want to delete this file?',
+        'error_deleting' => 'Error deleting file',
+        'separator' => ': '
     ],
     'error' => [
         'csrf_invalid' => 'Invalid CSRF token',

@@ -19,7 +19,12 @@ return [
         'uploaded_label' => 'تم الرفع',
         'error_deleting' => 'خطأ في حذف الملف',
         'picsum_link' => 'صور مجانية من Picsum',
-        'github_link' => 'عرض على GitHub'
+        'github_link' => 'عرض على GitHub',
+        'uploaded' => 'تم الرفع',
+        'upload_failed' => 'فشل في الرفع',
+        'confirm_delete' => 'هل أنت متأكد أنك تريد حذف هذا الملف؟',
+        'error_deleting' => 'خطأ في حذف الملف',
+        'separator' => ': '
     ],
     'error' => [
         'csrf_invalid' => 'رمز CSRF غير صحيح',

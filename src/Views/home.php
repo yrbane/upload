@@ -62,9 +62,10 @@
   <div id="translations" style="display: none;"
        data-confirm-delete="<?= htmlspecialchars($translations['app']['confirm_delete']) ?>"
        data-upload-success="<?= htmlspecialchars($translations['success']['upload_complete']) ?>"
-       data-upload-failed="<?= htmlspecialchars($translations['error']['upload_failed']) ?>"
-       data-uploaded-label="<?= htmlspecialchars($translations['app']['uploaded_label']) ?>"
+       data-upload-failed="<?= htmlspecialchars($translations['app']['upload_failed']) ?>"
+       data-uploaded-label="<?= htmlspecialchars($translations['app']['uploaded']) ?>"
        data-error-deleting="<?= htmlspecialchars($translations['app']['error_deleting']) ?>"
+       data-separator="<?= htmlspecialchars($translations['app']['separator']) ?>"
        data-current-locale="<?= htmlspecialchars($currentLocale) ?>"></div>
 
   <script src="/js/main.js"></script>

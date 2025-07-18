@@ -26,11 +26,12 @@ const dropArea   = document.getElementById('drop-area');
         const translations = document.getElementById('translations');
         if (xhr.status === 200) {
           const res = JSON.parse(xhr.responseText);
-          const uploadedLabel = translations.dataset.uploadedLabel || 'Uploaded';
-          result.innerHTML = `<p>${uploadedLabel}: <a href="${res.url}" target="_blank">${res.url}</a></p>`;
+          const uploadedLabel = translations.dataset.uploadedLabel;
+          const separator = translations.dataset.separator || ': ';
+          result.innerHTML = `<p>${uploadedLabel}${separator}<a href="${res.url}" target="_blank">${res.url}</a></p>`;
         } else {
           const errorRes = JSON.parse(xhr.responseText);
-          const uploadFailedMsg = translations.dataset.uploadFailed || 'Upload failed';
+          const uploadFailedMsg = translations.dataset.uploadFailed;
           result.textContent = errorRes.error || uploadFailedMsg;
         }
       };
@@ -48,7 +49,7 @@ const dropArea   = document.getElementById('drop-area');
         fileList.addEventListener('click', async (e) => {
             if (e.target.classList.contains('delete-btn')) {
                 const translations = document.getElementById('translations');
-                const confirmMessage = translations.dataset.confirmDelete || 'Are you sure you want to delete this file?';
+                const confirmMessage = translations.dataset.confirmDelete;
                 if (!confirm(confirmMessage)) {
                     return;
                 }
@@ -69,8 +70,9 @@ const dropArea   = document.getElementById('drop-area');
                     e.target.closest('li').remove();
                 } else {
                     const translations = document.getElementById('translations');
-                    const errorDeleting = translations.dataset.errorDeleting || 'Error deleting file';
-                    alert(errorDeleting + ': ' + result.error);
+                    const errorDeleting = translations.dataset.errorDeleting;
+                    const separator = translations.dataset.separator || ': ';
+                    alert(errorDeleting + separator + result.error);
                 }
             }
         });

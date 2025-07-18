@@ -19,7 +19,12 @@ return [
         'uploaded_label' => 'Envoyé',
         'error_deleting' => 'Erreur lors de la suppression du fichier',
         'picsum_link' => 'Images libres par Picsum',
-        'github_link' => 'Voir sur GitHub'
+        'github_link' => 'Voir sur GitHub',
+        'uploaded' => 'Envoyé',
+        'upload_failed' => 'Échec du téléversement',
+        'confirm_delete' => 'Êtes-vous sûr de vouloir supprimer ce fichier ?',
+        'error_deleting' => 'Erreur lors de la suppression du fichier',
+        'separator' => ' : '
     ],
     'error' => [
         'csrf_invalid' => 'Token CSRF invalide',

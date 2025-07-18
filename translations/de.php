@@ -19,7 +19,12 @@ return [
         'uploaded_label' => 'Hochgeladen',
         'error_deleting' => 'Fehler beim Löschen der Datei',
         'picsum_link' => 'Kostenlose Bilder von Picsum',
-        'github_link' => 'Auf GitHub anzeigen'
+        'github_link' => 'Auf GitHub anzeigen',
+        'uploaded' => 'Hochgeladen',
+        'upload_failed' => 'Upload fehlgeschlagen',
+        'confirm_delete' => 'Sind Sie sicher, dass Sie diese Datei löschen möchten?',
+        'error_deleting' => 'Fehler beim Löschen der Datei',
+        'separator' => ': '
     ],
     'error' => [
         'csrf_invalid' => 'Ungültiger CSRF-Token',

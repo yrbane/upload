@@ -19,7 +19,12 @@ return [
         'uploaded_label' => 'Caricato',
         'error_deleting' => 'Errore durante l\'eliminazione del file',
         'picsum_link' => 'Immagini gratuite di Picsum',
-        'github_link' => 'Visualizza su GitHub'
+        'github_link' => 'Visualizza su GitHub',
+        'uploaded' => 'Caricato',
+        'upload_failed' => 'Caricamento fallito',
+        'confirm_delete' => 'Sei sicuro di voler eliminare questo file?',
+        'error_deleting' => 'Errore durante l\'eliminazione del file',
+        'separator' => ': '
     ],
     'error' => [
         'csrf_invalid' => 'Token CSRF non valido',
