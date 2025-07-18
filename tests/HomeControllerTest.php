@@ -62,28 +62,20 @@ final class HomeControllerTest extends TestCase
                                    ['hash2', ['path' => '/path/2', 'filename' => 'file2.jpg', 'mime_type' => 'image/jpeg']],
                                ]);
 
-        // Replace the actual CookieManager and UrlShortener with mocks for this test
-        // This requires some trickery as they are instantiated inside the method.
-        // For a real application, consider dependency injection.
-        $homeController = new class($this->cookieManagerMock, $this->urlShortenerMock) extends HomeController {
-            private $mockCookieManager;
-            private $mockUrlShortener;
+        // Create a mock HomeService
+        $homeService = $this->createMock(\App\Services\HomeService::class);
+        $homeService->method('getHomePageData')
+                    ->willReturn([
+                        'csrfToken' => 'test-token',
+                        'baseHost' => 'http://localhost',
+                        'uploadedFiles' => [
+                            'hash1' => ['filename' => 'file1.txt', 'mime_type' => 'text/plain'],
+                            'hash2' => ['filename' => 'file2.jpg', 'mime_type' => 'image/jpeg']
+                        ]
+                    ]);
 
-            public function __construct($mockCookieManager, $mockUrlShortener) {
-                $this->mockCookieManager = $mockCookieManager;
-                $this->mockUrlShortener = $mockUrlShortener;
-            }
-
-            protected function getCookieManager(): CookieManager
-            {
-                return $this->mockCookieManager;
-            }
-
-            protected function getUrlShortener(string $baseHost): UrlShortener
-            {
-                return $this->mockUrlShortener;
-            }
-        };
+        // Inject the mock service
+        $homeController = new \App\Controllers\HomeController($homeService);
 
         // Get the response and check its content
         $response = $homeController->index();
