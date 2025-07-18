@@ -1,6 +1,8 @@
 {
     "require": {
-        "php": ">=8.0"
+        "php": ">=8.0",
+        "ext-pdo": "*",
+        "ext-fileinfo": "*"
     },
     "autoload": {
         "psr-4": {

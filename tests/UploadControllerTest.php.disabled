@@ -22,8 +22,12 @@ final class UploadControllerTest extends TestCase
         $_SERVER = [];
         $_SERVER['PHP_SELF'] = '/index.php';
         $_SERVER['REQUEST_URI'] = '/upload';
+        
+        // Start session first, then set session variables
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
         $_SESSION['csrf_token'] = 'test_csrf_token';
-        session_start();
     }
 
     protected function tearDown(): void

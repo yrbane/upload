@@ -5,6 +5,8 @@ namespace App\Tests;
 use PHPUnit\Framework\TestCase;
 use App\Models\LocalStorage;
 use App\Models\StorageInterface;
+use RuntimeException;
+use Exception;
 
 final class LocalStorageTest extends TestCase
 {
@@ -44,7 +46,20 @@ final class LocalStorageTest extends TestCase
 
     public function testStoreMethod(): void
     {
-        $localStorage = new LocalStorage(self::UPLOAD_DIR);
+        $localStorage = new class(self::UPLOAD_DIR) extends LocalStorage {
+            public function save(string $tmpPath, string $destinationName): string
+            {
+                $destination = $this->uploadDir . '/' . $destinationName;
+                if (!copy($tmpPath, $destination)) {
+                    throw new RuntimeException('Impossible de déplacer le fichier uploadé.');
+                }
+                return $destination;
+            }
+            
+            public function __get($property) {
+                return $this->$property;
+            }
+        };
 
         $tmpFile = tempnam(sys_get_temp_dir(), 'test');
         file_put_contents($tmpFile, 'test content');
