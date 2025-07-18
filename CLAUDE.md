@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a PHP file upload and sharing service that follows SOLID principles and PSR-12 standards. It provides drag & drop file uploads with URL shortening and user tracking via cookies.
+This is a PHP file upload and sharing service that follows SOLID principles and PSR-12 standards. It provides drag & drop file uploads with URL shortening, user tracking via cookies, and comprehensive internationalization support for 8 languages.
 
 ## Development Commands
 
@@ -45,7 +45,13 @@ sudo chmod 755 uploads data
   - `UrlShortener`: SQLite-based URL shortening with hash generation
   - `LocalStorage`: File storage implementation
   - `CookieManager`: User tracking via HTTP-only cookies
-- **Views** (`src/Views/`): HTML templates
+- **Services** (`src/Services/`): Business logic and application services
+  - `HomeService`: Home page data preparation
+  - `UploadService`: File upload validation and processing
+  - `FileService`: File download preparation
+  - `DeleteService`: File deletion with authorization
+  - `LocalizationService`: Translation and language management
+- **Views** (`src/Views/`): HTML templates with internationalization support
 
 ### Request Routing
 Simple router in `public/index.php` handles:
@@ -59,7 +65,9 @@ Simple router in `public/index.php` handles:
 - **URL Shortening**: 12-character hash → SQLite mapping in `data/files.db`
 - **User Tracking**: HTTP-only cookies track uploaded files (30-day expiry)
 - **Security**: CSRF tokens, file size limits (3GB), MIME type validation
+- **Internationalization**: 8 language support with automatic detection
 - **Database**: SQLite with auto-migration for schema updates
+- **Service Layer**: Clean architecture with dependency injection
 
 ### Database Schema
 ```sql
@@ -78,12 +86,66 @@ CREATE TABLE files (
 - **Upload Directory**: Default `uploads/`, configurable in `LocalStorage`
 - **Database**: Default `data/files.db`, SQLite connection in `UrlShortener`
 - **File Size Limit**: 3GB (defined in `FileUploader::upload()`)
+- **Localization**: Translation files in `translations/` directory
+- **Language Detection**: Automatic from HTTP Accept-Language header
 
 ## Dependencies
 
 - **PHP**: ≥8.0 with PDO SQLite extension
 - **Composer**: PSR-4 autoloading with `App\` namespace mapping to `src/`
 - **Frontend**: Vanilla JavaScript with drag & drop and progress bars
+
+## Internationalization (i18n)
+
+The application supports 8 languages with automatic detection and translation management:
+
+### Supported Languages
+- **French** (`fr`) - Default language
+- **English** (`en`) 
+- **Spanish** (`es`)
+- **German** (`de`)
+- **Italian** (`it`)
+- **Portuguese** (`pt`)
+- **Arabic** (`ar`) - Right-to-left support
+- **Chinese** (`zh`) - Simplified Chinese
+
+### Translation System
+- **LocalizationService**: Manages translations and language detection
+- **Translation Files**: Located in `translations/` directory (e.g., `fr.php`, `en.php`)
+- **Auto-Detection**: Uses HTTP Accept-Language header for language preference
+- **Parameter Substitution**: Supports dynamic values in translations (e.g., `{size}`)
+- **Fallback**: Returns translation key if translation is missing
+
+### Translation File Structure
+```php
+<?php declare(strict_types=1);
+return [
+    'app' => [
+        'title' => 'File Sharing',
+        'upload' => 'Upload',
+        // ... more app strings
+    ],
+    'error' => [
+        'file_not_found' => 'File not found',
+        'file_too_large' => 'File is too large (max {size})',
+        // ... more error messages
+    ],
+    'success' => [
+        'upload_complete' => 'Upload completed successfully',
+        // ... more success messages
+    ]
+];
+```
+
+### Usage in Code
+```php
+// In services
+$message = $this->localizationService->translate('error.file_not_found');
+$message = $this->localizationService->translate('error.file_too_large', ['size' => '3GB']);
+
+// In views
+<?= htmlspecialchars($translations['app']['title']) ?>
+```
 
 ## Development Methodology
 
