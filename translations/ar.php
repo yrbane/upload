@@ -15,7 +15,11 @@ return [
         'my_files' => 'ملفاتي',
         'no_files' => 'لا توجد ملفات مرفوعة',
         'language' => 'اللغة',
-        'change_language' => 'تغيير اللغة'
+        'change_language' => 'تغيير اللغة',
+        'uploaded_label' => 'تم الرفع',
+        'error_deleting' => 'خطأ في حذف الملف',
+        'picsum_link' => 'صور مجانية من Picsum',
+        'github_link' => 'عرض على GitHub'
     ],
     'error' => [
         'csrf_invalid' => 'رمز CSRF غير صحيح',

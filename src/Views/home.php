@@ -6,6 +6,20 @@
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+  <!-- Language Selector -->
+  <div id="language-selector">
+    <select id="language-select">
+      <option value="fr" data-flag="🇫🇷">Français</option>
+      <option value="en" data-flag="🇺🇸">English</option>
+      <option value="es" data-flag="🇪🇸">Español</option>
+      <option value="de" data-flag="🇩🇪">Deutsch</option>
+      <option value="it" data-flag="🇮🇹">Italiano</option>
+      <option value="pt" data-flag="🇵🇹">Português</option>
+      <option value="ar" data-flag="🇸🇦">العربية</option>
+      <option value="zh" data-flag="🇨🇳">中文</option>
+    </select>
+  </div>
+
   <div class="container">
     <h1><?= htmlspecialchars($translations['app']['title']) ?></h1>
     <div id="drop-area">
@@ -32,13 +46,26 @@
     <?php endif; ?>
   </div>
 
+  <!-- Footer Links -->
+  <div class="footer-links">
+    <a href="https://picsum.photos/" target="_blank" class="footer-link footer-left">
+      <?= htmlspecialchars($translations['app']['picsum_link']) ?>
+    </a>
+    <a href="https://github.com/anthropics/claude-code" target="_blank" class="footer-link footer-right">
+      <?= htmlspecialchars($translations['app']['github_link']) ?>
+    </a>
+  </div>
+
   <input type="hidden" id="csrfToken" value="<?php echo htmlspecialchars(
        $_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'
    ); ?>">
   <div id="translations" style="display: none;"
        data-confirm-delete="<?= htmlspecialchars($translations['app']['confirm_delete']) ?>"
        data-upload-success="<?= htmlspecialchars($translations['success']['upload_complete']) ?>"
-       data-upload-failed="<?= htmlspecialchars($translations['error']['upload_failed']) ?>"></div>
+       data-upload-failed="<?= htmlspecialchars($translations['error']['upload_failed']) ?>"
+       data-uploaded-label="<?= htmlspecialchars($translations['app']['uploaded_label']) ?>"
+       data-error-deleting="<?= htmlspecialchars($translations['app']['error_deleting']) ?>"
+       data-current-locale="<?= htmlspecialchars($currentLocale) ?>"></div>
 
   <script src="/js/main.js"></script>
 </body>

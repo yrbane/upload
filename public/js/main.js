@@ -26,7 +26,8 @@ const dropArea   = document.getElementById('drop-area');
         const translations = document.getElementById('translations');
         if (xhr.status === 200) {
           const res = JSON.parse(xhr.responseText);
-          result.innerHTML = `<p>Uploaded: <a href="${res.url}" target="_blank">${res.url}</a></p>`;
+          const uploadedLabel = translations.dataset.uploadedLabel || 'Uploaded';
+          result.innerHTML = `<p>${uploadedLabel}: <a href="${res.url}" target="_blank">${res.url}</a></p>`;
         } else {
           const errorRes = JSON.parse(xhr.responseText);
           const uploadFailedMsg = translations.dataset.uploadFailed || 'Upload failed';
@@ -65,7 +66,28 @@ const dropArea   = document.getElementById('drop-area');
             if (result.success) {
                 e.target.closest('li').remove();
             } else {
-                alert('Error deleting file: ' + result.error);
+                const translations = document.getElementById('translations');
+                const errorDeleting = translations.dataset.errorDeleting || 'Error deleting file';
+                alert(errorDeleting + ': ' + result.error);
             }
         }
     });
+
+    // Language switching functionality
+    const languageSelect = document.getElementById('language-select');
+    if (languageSelect) {
+        // Set the correct selected option based on current locale
+        const translations = document.getElementById('translations');
+        const currentLocale = translations.dataset.currentLocale;
+        if (currentLocale) {
+            languageSelect.value = currentLocale;
+        }
+
+        languageSelect.addEventListener('change', function() {
+            const selectedLang = this.value;
+            // Set a cookie to remember the language preference
+            document.cookie = `lang=${selectedLang}; path=/; max-age=31536000`; // 1 year
+            // Reload the page to apply the new language
+            window.location.reload();
+        });
+    }

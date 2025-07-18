@@ -15,7 +15,11 @@ return [
         'my_files' => '我的文件',
         'no_files' => '没有上传的文件',
         'language' => '语言',
-        'change_language' => '更改语言'
+        'change_language' => '更改语言',
+        'uploaded_label' => '已上传',
+        'error_deleting' => '删除文件错误',
+        'picsum_link' => 'Picsum 免费图片',
+        'github_link' => '在 GitHub 上查看'
     ],
     'error' => [
         'csrf_invalid' => '无效的CSRF令牌',

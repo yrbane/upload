@@ -80,6 +80,17 @@ class LocalizationService
         return self::DEFAULT_LOCALE;
     }
 
+    public function detectLocaleFromCookie(): ?string
+    {
+        if (isset($_COOKIE['lang'])) {
+            $lang = $_COOKIE['lang'];
+            if ($this->isLocaleSupported($lang)) {
+                return $lang;
+            }
+        }
+        return null;
+    }
+
     private function loadTranslations(): void
     {
         $translationFile = __DIR__ . '/../../translations/' . $this->currentLocale . '.php';

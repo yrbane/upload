@@ -15,7 +15,11 @@ return [
         'my_files' => 'Mis archivos',
         'no_files' => 'No hay archivos subidos',
         'language' => 'Idioma',
-        'change_language' => 'Cambiar idioma'
+        'change_language' => 'Cambiar idioma',
+        'uploaded_label' => 'Subido',
+        'error_deleting' => 'Error al eliminar archivo',
+        'picsum_link' => 'Imágenes gratuitas por Picsum',
+        'github_link' => 'Ver en GitHub'
     ],
     'error' => [
         'csrf_invalid' => 'Token CSRF inválido',

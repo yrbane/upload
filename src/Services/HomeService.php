@@ -54,7 +54,8 @@ class HomeService
             'csrfToken' => $this->generateCsrfToken(),
             'baseHost' => $this->getBaseHost(),
             'uploadedFiles' => $this->getUploadedFilesData(),
-            'translations' => $this->getTranslations()
+            'translations' => $this->getTranslations(),
+            'currentLocale' => $this->localizationService->getCurrentLocale()
         ];
     }
     

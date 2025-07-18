@@ -26,9 +26,12 @@ class HomeController
         
         $localizationService = new LocalizationService();
         
-        // Detect and set language from Accept-Language header
-        $acceptLanguage = $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? 'fr';
-        $detectedLocale = $localizationService->detectLocaleFromAcceptLanguage($acceptLanguage);
+        // Detect and set language from cookie first, then Accept-Language header
+        $detectedLocale = $localizationService->detectLocaleFromCookie();
+        if (!$detectedLocale) {
+            $acceptLanguage = $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? 'fr';
+            $detectedLocale = $localizationService->detectLocaleFromAcceptLanguage($acceptLanguage);
+        }
         $localizationService->setLocale($detectedLocale);
         
         return new HomeService(
@@ -50,6 +53,7 @@ class HomeController
         $baseHost = $data['baseHost'];
         $uploadedFiles = $data['uploadedFiles'];
         $translations = $data['translations'];
+        $currentLocale = $data['currentLocale'];
         
         ob_start();
         require __DIR__ . '/../Views/home.php';

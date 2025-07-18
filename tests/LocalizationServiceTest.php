@@ -120,4 +120,30 @@ class LocalizationServiceTest extends TestCase
         $this->assertEquals('Français', $languages['fr']);
         $this->assertEquals('English', $languages['en']);
     }
+
+    public function testDetectLocaleFromCookie(): void
+    {
+        // Test with supported locale
+        $_COOKIE['lang'] = 'en';
+        $locale = $this->localizationService->detectLocaleFromCookie();
+        $this->assertEquals('en', $locale);
+        
+        // Test with unsupported locale
+        $_COOKIE['lang'] = 'xx';
+        $locale = $this->localizationService->detectLocaleFromCookie();
+        $this->assertNull($locale);
+        
+        // Test with no cookie
+        unset($_COOKIE['lang']);
+        $locale = $this->localizationService->detectLocaleFromCookie();
+        $this->assertNull($locale);
+    }
+
+    public function testGetCurrentLocale(): void
+    {
+        $this->assertEquals('fr', $this->localizationService->getCurrentLocale());
+        
+        $this->localizationService->setLocale('en');
+        $this->assertEquals('en', $this->localizationService->getCurrentLocale());
+    }
 }
