@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Fun File Uploader</title>
+  <title>File Uploader</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
