@@ -85,11 +85,14 @@ final class HomeControllerTest extends TestCase
             }
         };
 
-        // Capture output to check if view variables are correctly passed
-        ob_start();
-        $homeController->index();
-        $output = ob_get_clean();
-
+        // Get the response and check its content
+        $response = $homeController->index();
+        
+        $this->assertInstanceOf(\App\Http\Response::class, $response);
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(['Content-Type' => 'text/html'], $response->getHeaders());
+        
+        $output = $response->getContent();
         $this->assertStringContainsString('file1.txt', $output);
         $this->assertStringContainsString('file2.jpg', $output);
         $this->assertStringContainsString('hash1', $output);
