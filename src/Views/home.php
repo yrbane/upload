@@ -9,14 +9,14 @@
   <!-- Language Selector -->
   <div id="language-selector">
     <select id="language-select">
-      <option value="fr" data-flag="🇫🇷">Français</option>
-      <option value="en" data-flag="🇺🇸">English</option>
-      <option value="es" data-flag="🇪🇸">Español</option>
-      <option value="de" data-flag="🇩🇪">Deutsch</option>
-      <option value="it" data-flag="🇮🇹">Italiano</option>
-      <option value="pt" data-flag="🇵🇹">Português</option>
-      <option value="ar" data-flag="🇸🇦">العربية</option>
-      <option value="zh" data-flag="🇨🇳">中文</option>
+      <option value="fr" data-icon="flag-fr">Français</option>
+      <option value="en" data-icon="flag-en">English</option>
+      <option value="es" data-icon="flag-es">Español</option>
+      <option value="de" data-icon="flag-de">Deutsch</option>
+      <option value="it" data-icon="flag-it">Italiano</option>
+      <option value="pt" data-icon="flag-pt">Português</option>
+      <option value="ar" data-icon="flag-ar">العربية</option>
+      <option value="zh" data-icon="flag-zh">中文</option>
     </select>
   </div>
 
@@ -50,15 +50,15 @@
   <div class="footer-links">
     <div class="footer-left">
       <a href="https://picsum.photos/" target="_blank" class="footer-link">
-        <?= htmlspecialchars($translations['app']['picsum_link']) ?>
+        <span class="icon icon-image"></span> <?= htmlspecialchars($translations['app']['picsum_link']) ?>
       </a>
       <a href="https://github.com/PapirusDevelopmentTeam/papirus-icon-theme" target="_blank" class="footer-link">
-        <?= htmlspecialchars($translations['app']['papirus_link']) ?>
+        <span class="icon icon-paint-brush"></span> <?= htmlspecialchars($translations['app']['papirus_link']) ?>
       </a>
     </div>
     <div class="footer-right">
       <a href="https://github.com/anthropics/claude-code" target="_blank" class="footer-link">
-        <?= htmlspecialchars($translations['app']['github_link']) ?>
+        <span class="icon icon-github"></span> <?= htmlspecialchars($translations['app']['github_link']) ?>
       </a>
     </div>
   </div>

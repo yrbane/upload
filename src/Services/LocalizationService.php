@@ -21,9 +21,9 @@ class LocalizationService
     private string $currentLocale;
     private array $translations = [];
 
-    public function __construct(?string $locale = null)
+    public function __construct()
     {
-        $this->currentLocale = $locale ?? self::DEFAULT_LOCALE;
+        $this->currentLocale = $this->detectLocale();
         $this->loadTranslations();
     }
 
@@ -66,29 +66,30 @@ class LocalizationService
         return $this->replaceParameters($translation, $parameters);
     }
 
-    public function detectLocaleFromAcceptLanguage(string $acceptLanguage): string
+    public function detectLocale(): string
     {
-        $languages = $this->parseAcceptLanguage($acceptLanguage);
-        
-        foreach ($languages as $language) {
-            $locale = $this->extractLocaleFromLanguage($language);
-            if ($this->isLocaleSupported($locale)) {
-                return $locale;
-            }
-        }
-        
-        return self::DEFAULT_LOCALE;
-    }
-
-    public function detectLocaleFromCookie(): ?string
-    {
+        // 1. Check for a language preference in the cookie
         if (isset($_COOKIE['lang'])) {
             $lang = $_COOKIE['lang'];
             if ($this->isLocaleSupported($lang)) {
                 return $lang;
             }
         }
-        return null;
+
+        // 2. Check the Accept-Language header
+        if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+            $acceptLanguage = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+            $languages = $this->parseAcceptLanguage($acceptLanguage);
+            foreach ($languages as $language) {
+                $locale = $this->extractLocaleFromLanguage($language);
+                if ($this->isLocaleSupported($locale)) {
+                    return $locale;
+                }
+            }
+        }
+
+        // 3. Fallback to the default locale
+        return self::DEFAULT_LOCALE;
     }
 
     private function loadTranslations(): void

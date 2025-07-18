@@ -26,14 +26,6 @@ class HomeController
         
         $localizationService = new LocalizationService();
         
-        // Detect and set language from cookie first, then Accept-Language header
-        $detectedLocale = $localizationService->detectLocaleFromCookie();
-        if (!$detectedLocale) {
-            $acceptLanguage = $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? 'fr';
-            $detectedLocale = $localizationService->detectLocaleFromAcceptLanguage($acceptLanguage);
-        }
-        $localizationService->setLocale($detectedLocale);
-        
         return new HomeService(
             new CookieManager(),
             new UrlShortener(__DIR__ . '/../../data/files.db', $baseHost . '/f'),
