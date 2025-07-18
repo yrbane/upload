@@ -23,11 +23,14 @@ const dropArea   = document.getElementById('drop-area');
       };
       xhr.onload = () => {
         progress.style.display = 'none';
+        const translations = document.getElementById('translations');
         if (xhr.status === 200) {
           const res = JSON.parse(xhr.responseText);
           result.innerHTML = `<p>Uploaded: <a href="${res.url}" target="_blank">${res.url}</a></p>`;
         } else {
-          result.textContent = 'Upload failed';
+          const errorRes = JSON.parse(xhr.responseText);
+          const uploadFailedMsg = translations.dataset.uploadFailed || 'Upload failed';
+          result.textContent = errorRes.error || uploadFailedMsg;
         }
       };
       const fd = new FormData();
@@ -41,7 +44,9 @@ const dropArea   = document.getElementById('drop-area');
     // Delete functionality
     document.getElementById('file-list').addEventListener('click', async (e) => {
         if (e.target.classList.contains('delete-btn')) {
-            if (!confirm('Are you sure you want to delete this file?')) {
+            const translations = document.getElementById('translations');
+            const confirmMessage = translations.dataset.confirmDelete || 'Are you sure you want to delete this file?';
+            if (!confirm(confirmMessage)) {
                 return;
             }
             const hash = e.target.dataset.hash;

@@ -9,7 +9,7 @@
   <div class="container">
     <h1><?= htmlspecialchars($translations['app']['title']) ?></h1>
     <div id="drop-area">
-      <p><?= htmlspecialchars($translations['app']['drag_drop']) ?></p>
+      <p><?= htmlspecialchars($translations['app']['drag_drop']) ?> or <button id="fileSelect" type="button"><?= htmlspecialchars($translations['app']['select_file']) ?></button></p>
       <input type="file" id="fileElem" hidden>
       (Max 3 Gb)
     </div>
@@ -35,6 +35,10 @@
   <input type="hidden" id="csrfToken" value="<?php echo htmlspecialchars(
        $_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'
    ); ?>">
+  <div id="translations" style="display: none;"
+       data-confirm-delete="<?= htmlspecialchars($translations['app']['confirm_delete']) ?>"
+       data-upload-success="<?= htmlspecialchars($translations['success']['upload_complete']) ?>"
+       data-upload-failed="<?= htmlspecialchars($translations['error']['upload_failed']) ?>"></div>
 
   <script src="/js/main.js"></script>
 </body>
