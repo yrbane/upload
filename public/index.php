@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+session_start();
+
 require __DIR__ . '/../vendor/autoload.php';
 
 $requestUri = $_SERVER['REQUEST_URI'];
@@ -10,12 +12,12 @@ $requestMethod = $_SERVER['REQUEST_METHOD'];
 switch ($requestUri) {
     case '/':
         $controller = new App\Controllers\HomeController();
-        $controller->index();
+        echo $controller->index();
         break;
     case '/upload':
         if ($requestMethod === 'POST') {
             $controller = new App\Controllers\UploadController();
-            $controller->upload();
+            echo $controller->upload();
         } else {
             http_response_code(405);
             echo 'Method Not Allowed';
@@ -24,7 +26,7 @@ switch ($requestUri) {
     case '/delete':
         if ($requestMethod === 'POST') {
             $controller = new App\Controllers\DeleteController();
-            $controller->delete($_POST['hash']);
+            echo $controller->delete($_POST['hash']);
         } else {
             http_response_code(405);
             echo 'Method Not Allowed';
