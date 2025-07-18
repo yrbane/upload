@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 use App\Http\Response;
 use App\Services\HomeService;
+use App\Services\LocalizationService;
 use App\Models\CookieManager;
 use App\Models\UrlShortener;
 
@@ -23,9 +24,17 @@ class HomeController
                   . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost')
                   . rtrim(dirname($_SERVER['PHP_SELF'] ?? '/'), '/');
         
+        $localizationService = new LocalizationService();
+        
+        // Detect and set language from Accept-Language header
+        $acceptLanguage = $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? 'fr';
+        $detectedLocale = $localizationService->detectLocaleFromAcceptLanguage($acceptLanguage);
+        $localizationService->setLocale($detectedLocale);
+        
         return new HomeService(
             new CookieManager(),
-            new UrlShortener(__DIR__ . '/../../data/files.db', $baseHost . '/f')
+            new UrlShortener(__DIR__ . '/../../data/files.db', $baseHost . '/f'),
+            $localizationService
         );
     }
 
@@ -40,6 +49,7 @@ class HomeController
         // Extract variables for the view
         $baseHost = $data['baseHost'];
         $uploadedFiles = $data['uploadedFiles'];
+        $translations = $data['translations'];
         
         ob_start();
         require __DIR__ . '/../Views/home.php';

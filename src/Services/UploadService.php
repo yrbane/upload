@@ -7,16 +7,18 @@ use App\Models\FileUploader;
 class UploadService
 {
     private FileUploader $fileUploader;
+    private LocalizationService $localizationService;
 
-    public function __construct(FileUploader $fileUploader)
+    public function __construct(FileUploader $fileUploader, LocalizationService $localizationService)
     {
         $this->fileUploader = $fileUploader;
+        $this->localizationService = $localizationService;
     }
 
     public function validateCsrfToken(): array
     {
         if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-            return ['valid' => false, 'error' => 'Token CSRF invalide'];
+            return ['valid' => false, 'error' => $this->localizationService->translate('error.csrf_invalid')];
         }
 
         return ['valid' => true, 'error' => ''];
@@ -25,7 +27,7 @@ class UploadService
     public function validateFileUpload(): array
     {
         if (!isset($_FILES['file'])) {
-            return ['valid' => false, 'error' => 'No file sent.'];
+            return ['valid' => false, 'error' => $this->localizationService->translate('error.file_not_sent')];
         }
 
         return ['valid' => true, 'error' => ''];

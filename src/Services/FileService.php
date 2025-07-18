@@ -7,10 +7,12 @@ use App\Models\UrlShortener;
 class FileService
 {
     private UrlShortener $urlShortener;
+    private LocalizationService $localizationService;
 
-    public function __construct(UrlShortener $urlShortener)
+    public function __construct(UrlShortener $urlShortener, LocalizationService $localizationService)
     {
         $this->urlShortener = $urlShortener;
+        $this->localizationService = $localizationService;
     }
 
     public function getFileData(string $hash): ?array
@@ -35,7 +37,7 @@ class FileService
         if (!$fileData) {
             return [
                 'success' => false,
-                'error' => 'File not found',
+                'error' => $this->localizationService->translate('error.file_not_found'),
                 'content' => null,
                 'mimeType' => null,
                 'filename' => null
@@ -45,7 +47,7 @@ class FileService
         if (!$this->fileExists($fileData['path'])) {
             return [
                 'success' => false,
-                'error' => 'File not found',
+                'error' => $this->localizationService->translate('error.file_not_found'),
                 'content' => null,
                 'mimeType' => null,
                 'filename' => null

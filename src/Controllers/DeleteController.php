@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 use App\Http\JsonResponse;
 use App\Services\DeleteService;
+use App\Services\LocalizationService;
 use App\Models\UrlShortener;
 use App\Models\CookieManager;
 
@@ -23,9 +24,12 @@ class DeleteController
                   . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost')
                   . rtrim(dirname($_SERVER['PHP_SELF'] ?? '/'), '/');
         
+        $localizationService = new LocalizationService();
+        
         return new DeleteService(
             new UrlShortener(__DIR__ . '/../../data/files.db', $baseHost . '/f'),
-            new CookieManager()
+            new CookieManager(),
+            $localizationService
         );
     }
 
@@ -37,10 +41,11 @@ class DeleteController
             return new JsonResponse(['success' => true], 200);
         }
         
+        $localizationService = new LocalizationService();
         $statusCode = match ($result['error']) {
-            'Invalid CSRF token.' => 400,
-            'You are not authorized to delete this file.' => 403,
-            'File not found in database.' => 404,
+            $localizationService->translate('error.csrf_invalid') => 400,
+            $localizationService->translate('error.unauthorized') => 403,
+            $localizationService->translate('error.database_error') => 404,
             default => 400
         };
         

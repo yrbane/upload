@@ -2,14 +2,14 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>File Uploader</title>
+  <title><?= htmlspecialchars($translations['app']['title']) ?></title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <div class="container">
-    <h1>Upload File</h1>
+    <h1><?= htmlspecialchars($translations['app']['title']) ?></h1>
     <div id="drop-area">
-      <p>Drag & Drop here or <button id="fileSelect">choose</button></p>
+      <p><?= htmlspecialchars($translations['app']['drag_drop']) ?></p>
       <input type="file" id="fileElem" hidden>
       (Max 3 Gb)
     </div>
@@ -17,7 +17,7 @@
     <div id="result"></div>
 
     <?php if (!empty($uploadedFiles)): ?>
-      <h2>Your Files</h2>
+      <h2><?= htmlspecialchars($translations['app']['my_files']) ?></h2>
       <ul id="file-list">
         <?php foreach ($uploadedFiles as $hash => $fileData): ?>
           <li data-hash="<?= htmlspecialchars($hash) ?>">
@@ -25,7 +25,7 @@
             <a href="<?= htmlspecialchars($baseHost . '/f/' . $hash) ?>" target="_blank">
               <?= htmlspecialchars($fileData['filename']) ?>
             </a>
-            <button class="delete-btn" data-hash="<?= htmlspecialchars($hash) ?>"></button>
+            <button class="delete-btn" data-hash="<?= htmlspecialchars($hash) ?>" title="<?= htmlspecialchars($translations['app']['delete']) ?>"></button>
           </li>
         <?php endforeach; ?>
       </ul>

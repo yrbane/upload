@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\StorageInterface;
 use App\Models\UrlShortener;
+use App\Services\LocalizationService;
 
 use RuntimeException;
 
@@ -15,7 +16,8 @@ class FileUploader
     public function __construct(
         private StorageInterface $storage,
         private UrlShortener    $shortener,
-        private CookieManager   $cookieManager
+        private CookieManager   $cookieManager,
+        private LocalizationService $localizationService
     ) {}
 
     /**
@@ -31,7 +33,7 @@ class FileUploader
             throw new RuntimeException('Upload error code: ' . $file['error']);
         }
         if ($file['size'] > 3000 * 1024 * 1024) {
-            throw new RuntimeException('File too large (max 3 GB).');
+            throw new RuntimeException($this->localizationService->translate('error.file_too_large', ['size' => '3 GB']));
         }
 
         // 2. Mime-type detection

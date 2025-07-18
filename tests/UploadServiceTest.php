@@ -3,6 +3,7 @@
 namespace App\Tests;
 
 use App\Services\UploadService;
+use App\Services\LocalizationService;
 use App\Models\FileUploader;
 use PHPUnit\Framework\TestCase;
 
@@ -10,11 +11,13 @@ class UploadServiceTest extends TestCase
 {
     private UploadService $uploadService;
     private FileUploader $fileUploader;
+    private LocalizationService $localizationService;
 
     protected function setUp(): void
     {
         $this->fileUploader = $this->createMock(FileUploader::class);
-        $this->uploadService = new UploadService($this->fileUploader);
+        $this->localizationService = $this->createMock(LocalizationService::class);
+        $this->uploadService = new UploadService($this->fileUploader, $this->localizationService);
     }
 
     public function testValidateCsrfTokenSuccess(): void
@@ -33,6 +36,11 @@ class UploadServiceTest extends TestCase
         $_SESSION['csrf_token'] = 'valid-token';
         unset($_POST['csrf_token']);
 
+        $this->localizationService->expects($this->once())
+            ->method('translate')
+            ->with('error.csrf_invalid')
+            ->willReturn('Token CSRF invalide');
+
         $result = $this->uploadService->validateCsrfToken();
         
         $this->assertFalse($result['valid']);
@@ -43,6 +51,11 @@ class UploadServiceTest extends TestCase
     {
         $_SESSION['csrf_token'] = 'valid-token';
         $_POST['csrf_token'] = 'invalid-token';
+
+        $this->localizationService->expects($this->once())
+            ->method('translate')
+            ->with('error.csrf_invalid')
+            ->willReturn('Token CSRF invalide');
 
         $result = $this->uploadService->validateCsrfToken();
         
@@ -68,6 +81,11 @@ class UploadServiceTest extends TestCase
     public function testValidateFileUploadMissing(): void
     {
         unset($_FILES['file']);
+
+        $this->localizationService->expects($this->once())
+            ->method('translate')
+            ->with('error.file_not_sent')
+            ->willReturn('No file sent.');
 
         $result = $this->uploadService->validateFileUpload();
         
@@ -109,6 +127,11 @@ class UploadServiceTest extends TestCase
             'size' => 1000
         ];
 
+        $this->localizationService->expects($this->once())
+            ->method('translate')
+            ->with('error.csrf_invalid')
+            ->willReturn('Token CSRF invalide');
+
         $this->fileUploader->expects($this->never())
             ->method('upload');
 
@@ -123,6 +146,11 @@ class UploadServiceTest extends TestCase
         $_SESSION['csrf_token'] = 'valid-token';
         $_POST['csrf_token'] = 'valid-token';
         unset($_FILES['file']);
+
+        $this->localizationService->expects($this->once())
+            ->method('translate')
+            ->with('error.file_not_sent')
+            ->willReturn('No file sent.');
 
         $this->fileUploader->expects($this->never())
             ->method('upload');

@@ -3,6 +3,7 @@
 namespace App\Tests;
 
 use App\Services\DeleteService;
+use App\Services\LocalizationService;
 use App\Models\UrlShortener;
 use App\Models\CookieManager;
 use PHPUnit\Framework\TestCase;
@@ -12,12 +13,14 @@ class DeleteServiceTest extends TestCase
     private DeleteService $deleteService;
     private UrlShortener $urlShortener;
     private CookieManager $cookieManager;
+    private LocalizationService $localizationService;
 
     protected function setUp(): void
     {
         $this->urlShortener = $this->createMock(UrlShortener::class);
         $this->cookieManager = $this->createMock(CookieManager::class);
-        $this->deleteService = new DeleteService($this->urlShortener, $this->cookieManager);
+        $this->localizationService = $this->createMock(LocalizationService::class);
+        $this->deleteService = new DeleteService($this->urlShortener, $this->cookieManager, $this->localizationService);
     }
 
     public function testValidateCsrfTokenSuccess(): void
@@ -35,6 +38,11 @@ class DeleteServiceTest extends TestCase
     {
         $_SESSION['csrf_token'] = 'valid-token';
         $_POST['csrf_token'] = 'invalid-token';
+
+        $this->localizationService->expects($this->once())
+            ->method('translate')
+            ->with('error.csrf_invalid')
+            ->willReturn('Invalid CSRF token.');
 
         $result = $this->deleteService->validateCsrfToken();
         
@@ -65,6 +73,11 @@ class DeleteServiceTest extends TestCase
         $this->cookieManager->expects($this->once())
             ->method('getUploadedHashes')
             ->willReturn($uploadedHashes);
+
+        $this->localizationService->expects($this->once())
+            ->method('translate')
+            ->with('error.unauthorized')
+            ->willReturn('You are not authorized to delete this file.');
 
         $result = $this->deleteService->validateUserAuthorization($hash);
         
@@ -117,6 +130,11 @@ class DeleteServiceTest extends TestCase
         $_SESSION['csrf_token'] = 'valid-token';
         $_POST['csrf_token'] = 'invalid-token';
 
+        $this->localizationService->expects($this->once())
+            ->method('translate')
+            ->with('error.csrf_invalid')
+            ->willReturn('Invalid CSRF token.');
+
         $this->cookieManager->expects($this->never())
             ->method('getUploadedHashes');
 
@@ -136,6 +154,11 @@ class DeleteServiceTest extends TestCase
         $this->cookieManager->expects($this->once())
             ->method('getUploadedHashes')
             ->willReturn(['def456']);
+
+        $this->localizationService->expects($this->once())
+            ->method('translate')
+            ->with('error.unauthorized')
+            ->willReturn('You are not authorized to delete this file.');
 
         $result = $this->deleteService->deleteFile($hash);
         
@@ -158,6 +181,11 @@ class DeleteServiceTest extends TestCase
             ->method('resolve')
             ->with($hash)
             ->willReturn(null);
+
+        $this->localizationService->expects($this->once())
+            ->method('translate')
+            ->with('error.database_error')
+            ->willReturn('File not found in database.');
 
         $result = $this->deleteService->deleteFile($hash);
         

@@ -9,17 +9,19 @@ class DeleteService
 {
     private UrlShortener $urlShortener;
     private CookieManager $cookieManager;
+    private LocalizationService $localizationService;
 
-    public function __construct(UrlShortener $urlShortener, CookieManager $cookieManager)
+    public function __construct(UrlShortener $urlShortener, CookieManager $cookieManager, LocalizationService $localizationService)
     {
         $this->urlShortener = $urlShortener;
         $this->cookieManager = $cookieManager;
+        $this->localizationService = $localizationService;
     }
 
     public function validateCsrfToken(): array
     {
         if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-            return ['valid' => false, 'error' => 'Invalid CSRF token.'];
+            return ['valid' => false, 'error' => $this->localizationService->translate('error.csrf_invalid')];
         }
 
         return ['valid' => true, 'error' => ''];
@@ -30,7 +32,7 @@ class DeleteService
         $uploadedHashes = $this->cookieManager->getUploadedHashes();
         
         if (!in_array($hash, $uploadedHashes)) {
-            return ['valid' => false, 'error' => 'You are not authorized to delete this file.'];
+            return ['valid' => false, 'error' => $this->localizationService->translate('error.unauthorized')];
         }
 
         return ['valid' => true, 'error' => ''];
@@ -58,7 +60,7 @@ class DeleteService
         if (!$fileData) {
             return [
                 'success' => false,
-                'error' => 'File not found in database.'
+                'error' => $this->localizationService->translate('error.database_error')
             ];
         }
 

@@ -3,6 +3,7 @@
 namespace App\Tests;
 
 use App\Services\HomeService;
+use App\Services\LocalizationService;
 use App\Models\CookieManager;
 use App\Models\UrlShortener;
 use PHPUnit\Framework\TestCase;
@@ -12,12 +13,14 @@ class HomeServiceTest extends TestCase
     private HomeService $homeService;
     private CookieManager $cookieManager;
     private UrlShortener $urlShortener;
+    private LocalizationService $localizationService;
 
     protected function setUp(): void
     {
         $this->cookieManager = $this->createMock(CookieManager::class);
         $this->urlShortener = $this->createMock(UrlShortener::class);
-        $this->homeService = new HomeService($this->cookieManager, $this->urlShortener);
+        $this->localizationService = $this->createMock(LocalizationService::class);
+        $this->homeService = new HomeService($this->cookieManager, $this->urlShortener, $this->localizationService);
     }
 
     public function testGenerateCsrfToken(): void
@@ -113,11 +116,16 @@ class HomeServiceTest extends TestCase
             ->with('hash1')
             ->willReturn(['filename' => 'test.txt', 'mime_type' => 'text/plain']);
         
+        $this->localizationService->expects($this->atLeast(1))
+            ->method('translate')
+            ->willReturnArgument(0);
+        
         $result = $this->homeService->getHomePageData();
         
         $this->assertArrayHasKey('csrfToken', $result);
         $this->assertArrayHasKey('baseHost', $result);
         $this->assertArrayHasKey('uploadedFiles', $result);
+        $this->assertArrayHasKey('translations', $result);
         $this->assertEquals('https://example.com', $result['baseHost']);
         $this->assertEquals(['hash1' => ['filename' => 'test.txt', 'mime_type' => 'text/plain']], $result['uploadedFiles']);
     }

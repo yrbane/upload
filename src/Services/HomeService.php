@@ -9,11 +9,13 @@ class HomeService
 {
     private CookieManager $cookieManager;
     private UrlShortener $urlShortener;
+    private LocalizationService $localizationService;
 
-    public function __construct(CookieManager $cookieManager, UrlShortener $urlShortener)
+    public function __construct(CookieManager $cookieManager, UrlShortener $urlShortener, LocalizationService $localizationService)
     {
         $this->cookieManager = $cookieManager;
         $this->urlShortener = $urlShortener;
+        $this->localizationService = $localizationService;
     }
 
     public function generateCsrfToken(): string
@@ -51,7 +53,27 @@ class HomeService
         return [
             'csrfToken' => $this->generateCsrfToken(),
             'baseHost' => $this->getBaseHost(),
-            'uploadedFiles' => $this->getUploadedFilesData()
+            'uploadedFiles' => $this->getUploadedFilesData(),
+            'translations' => $this->getTranslations()
+        ];
+    }
+    
+    private function getTranslations(): array
+    {
+        return [
+            'app' => [
+                'title' => $this->localizationService->translate('app.title'),
+                'upload' => $this->localizationService->translate('app.upload'),
+                'select_file' => $this->localizationService->translate('app.select_file'),
+                'drag_drop' => $this->localizationService->translate('app.drag_drop'),
+                'my_files' => $this->localizationService->translate('app.my_files'),
+                'no_files' => $this->localizationService->translate('app.no_files'),
+                'delete' => $this->localizationService->translate('app.delete'),
+                'confirm_delete' => $this->localizationService->translate('app.confirm_delete'),
+                'copy_link' => $this->localizationService->translate('app.copy_link'),
+                'language' => $this->localizationService->translate('app.language'),
+                'change_language' => $this->localizationService->translate('app.change_language')
+            ]
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Tests;
 
 use App\Services\FileService;
+use App\Services\LocalizationService;
 use App\Models\UrlShortener;
 use PHPUnit\Framework\TestCase;
 
@@ -10,11 +11,13 @@ class FileServiceTest extends TestCase
 {
     private FileService $fileService;
     private UrlShortener $urlShortener;
+    private LocalizationService $localizationService;
 
     protected function setUp(): void
     {
         $this->urlShortener = $this->createMock(UrlShortener::class);
-        $this->fileService = new FileService($this->urlShortener);
+        $this->localizationService = $this->createMock(LocalizationService::class);
+        $this->fileService = new FileService($this->urlShortener, $this->localizationService);
     }
 
     public function testGetFileDataSuccess(): void
@@ -120,6 +123,11 @@ class FileServiceTest extends TestCase
             ->with($hash)
             ->willReturn(null);
 
+        $this->localizationService->expects($this->once())
+            ->method('translate')
+            ->with('error.file_not_found')
+            ->willReturn('File not found');
+
         $result = $this->fileService->prepareFileForDownload($hash);
 
         $this->assertFalse($result['success']);
@@ -139,6 +147,11 @@ class FileServiceTest extends TestCase
             ->method('resolve')
             ->with($hash)
             ->willReturn($fileData);
+
+        $this->localizationService->expects($this->once())
+            ->method('translate')
+            ->with('error.file_not_found')
+            ->willReturn('File not found');
 
         $result = $this->fileService->prepareFileForDownload($hash);
 

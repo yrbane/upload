@@ -1,0 +1,57 @@
+<?php declare(strict_types=1);
+
+return [
+    'app' => [
+        'title' => 'Condivisione File',
+        'upload' => 'Carica',
+        'select_file' => 'Seleziona un file',
+        'drag_drop' => 'Trascina e rilascia un file qui o clicca per selezionare',
+        'uploading' => 'Caricamento...',
+        'upload_success' => 'File caricato con successo',
+        'file_url' => 'URL del file',
+        'copy_link' => 'Copia link',
+        'delete' => 'Elimina',
+        'confirm_delete' => 'Sei sicuro di voler eliminare questo file?',
+        'my_files' => 'I miei file',
+        'no_files' => 'Nessun file caricato',
+        'language' => 'Lingua',
+        'change_language' => 'Cambia lingua'
+    ],
+    'error' => [
+        'csrf_invalid' => 'Token CSRF non valido',
+        'file_not_sent' => 'Nessun file inviato.',
+        'file_too_large' => 'Il file è troppo grande (max {size})',
+        'file_not_found' => 'File non trovato',
+        'unauthorized' => 'Non sei autorizzato a eliminare questo file.',
+        'database_error' => 'File non trovato nel database.',
+        'upload_failed' => 'Caricamento fallito',
+        'network_error' => 'Errore di rete',
+        'method_not_allowed' => 'Metodo non consentito',
+        'not_found' => 'Non trovato'
+    ],
+    'success' => [
+        'upload_complete' => 'Caricamento completato con successo',
+        'file_deleted' => 'File eliminato con successo',
+        'link_copied' => 'Link copiato negli appunti'
+    ],
+    'security' => [
+        'report_title' => 'Rapporto di Sicurezza',
+        'directory_permissions' => 'Permessi di Directory',
+        'file_access_security' => 'Sicurezza di Accesso ai File',
+        'upload_security' => 'Sicurezza di Caricamento',
+        'directory_traversal' => 'Traversal di Directory',
+        'php_files_outside_public' => 'File PHP fuori dal pubblico',
+        'config_files_accessible' => 'File di configurazione accessibili',
+        'htaccess_protection' => 'Protezione .htaccess',
+        'php_execution_blocked' => 'Esecuzione PHP bloccata',
+        'safety_status' => 'Stato di sicurezza',
+        'protected' => 'Protetto',
+        'accessible' => 'Accessibile',
+        'enabled' => 'Abilitato',
+        'missing' => 'Mancante',
+        'blocked' => 'Bloccato',
+        'allowed' => 'Consentito',
+        'safe' => 'Sicuro',
+        'vulnerable' => 'Vulnerabile'
+    ]
+];

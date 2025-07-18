@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 use App\Http\JsonResponse;
 use App\Services\UploadService;
+use App\Services\LocalizationService;
 use App\Models\FileUploader;
 use App\Models\LocalStorage;
 use App\Models\UrlShortener;
@@ -25,13 +26,16 @@ class UploadController
                   . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost')
                   . rtrim(dirname($_SERVER['PHP_SELF'] ?? '/'), '/');
 
+        $localizationService = new LocalizationService();
+        
         $fileUploader = new FileUploader(
             new LocalStorage(__DIR__ . '/../../uploads'),
             new UrlShortener(__DIR__ . '/../../data/files.db', $baseHost . '/f'),
-            new CookieManager()
+            new CookieManager(),
+            $localizationService
         );
         
-        return new UploadService($fileUploader);
+        return new UploadService($fileUploader, $localizationService);
     }
 
     public function upload(): JsonResponse

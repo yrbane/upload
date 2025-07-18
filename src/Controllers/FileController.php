@@ -6,6 +6,7 @@ namespace App\Controllers;
 use App\Http\Response;
 use App\Http\BinaryResponse;
 use App\Services\FileService;
+use App\Services\LocalizationService;
 use App\Models\UrlShortener;
 
 class FileController
@@ -23,8 +24,11 @@ class FileController
                   . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost')
                   . rtrim(dirname($_SERVER['PHP_SELF'] ?? '/'), '/');
         
+        $localizationService = new LocalizationService();
+        
         return new FileService(
-            new UrlShortener(__DIR__ . '/../../data/files.db', $baseHost . '/f')
+            new UrlShortener(__DIR__ . '/../../data/files.db', $baseHost . '/f'),
+            $localizationService
         );
     }
 

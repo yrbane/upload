@@ -6,12 +6,14 @@ use App\Models\FileUploader;
 use App\Models\StorageInterface;
 use App\Models\UrlShortener;
 use App\Models\CookieManager;
+use App\Services\LocalizationService;
 
 final class FileUploaderTest extends TestCase
 {
     private $storageMock;
     private $shortenerMock;
     private $cookieManagerMock;
+    private $localizationServiceMock;
     private $fileUploader;
 
     protected function setUp(): void
@@ -19,11 +21,13 @@ final class FileUploaderTest extends TestCase
         $this->storageMock = $this->createMock(StorageInterface::class);
         $this->shortenerMock = $this->createMock(UrlShortener::class);
         $this->cookieManagerMock = $this->createMock(CookieManager::class);
+        $this->localizationServiceMock = $this->createMock(LocalizationService::class);
 
         $this->fileUploader = new FileUploader(
             $this->storageMock,
             $this->shortenerMock,
-            $this->cookieManagerMock
+            $this->cookieManagerMock,
+            $this->localizationServiceMock
         );
     }
 
@@ -89,6 +93,11 @@ final class FileUploaderTest extends TestCase
             'error' => UPLOAD_ERR_OK,
             'size' => 3001 * 1024 * 1024, // Slightly larger than 3GB
         ];
+
+        $this->localizationServiceMock->expects($this->once())
+            ->method('translate')
+            ->with('error.file_too_large', ['size' => '3 GB'])
+            ->willReturn('File too large (max 3 GB).');
 
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('File too large (max 3 GB).');
