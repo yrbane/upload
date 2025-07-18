@@ -7,9 +7,18 @@ use App\Models\CookieManager;
 
 class HomeController
 {
+    protected function getCookieManager(): CookieManager
+    {
+        return new CookieManager();
+    }
+
+    protected function getUrlShortener(string $baseHost): \App\Models\UrlShortener
+    {
+        return new \App\Models\UrlShortener(__DIR__ . '/../../data/files.db', $baseHost . '/f');
+    }
+
     public function index()
     {
-        session_start();
 
         if (!isset($_SESSION['csrf_token'])) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -19,10 +28,10 @@ class HomeController
                   . '://' . $_SERVER['HTTP_HOST']
                   . rtrim(dirname($_SERVER['PHP_SELF']), '/');
 
-        $cookieManager  = new CookieManager();
+        $cookieManager  = $this->getCookieManager();
         $uploadedHashes = $cookieManager->getUploadedHashes();
 
-        $shortener = new \App\Models\UrlShortener(__DIR__ . '/../../data/files.db', $baseHost . '/f');
+        $shortener = $this->getUrlShortener($baseHost);
         $uploadedFiles = [];
         foreach ($uploadedHashes as $hash) {
             $fileData = $shortener->resolve($hash);

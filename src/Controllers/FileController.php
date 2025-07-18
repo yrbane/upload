@@ -7,13 +7,17 @@ use App\Models\UrlShortener;
 
 class FileController
 {
-    public function download(string $hash)
+    protected function getUrlShortener(): UrlShortener
     {
         $baseHost = (isset($_SERVER['HTTPS']) ? 'https' : 'http')
                   . '://' . $_SERVER['HTTP_HOST']
                   . rtrim(dirname($_SERVER['PHP_SELF']), '/');
+        return new UrlShortener(__DIR__ . '/../../data/files.db', $baseHost . '/f');
+    }
 
-        $shortener = new UrlShortener(__DIR__ . '/../../data/files.db', $baseHost . '/f');
+    public function download(string $hash)
+    {
+        $shortener = $this->getUrlShortener();
         $fileData = $shortener->resolve($hash);
 
         if (!$fileData || !file_exists($fileData['path'])) {
