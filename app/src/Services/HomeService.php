@@ -73,7 +73,17 @@ class HomeService
                 'confirm_delete' => $this->localizationService->translate('app.confirm_delete'),
                 'copy_link' => $this->localizationService->translate('app.copy_link'),
                 'language' => $this->localizationService->translate('app.language'),
-                'change_language' => $this->localizationService->translate('app.change_language')
+                'change_language' => $this->localizationService->translate('app.change_language'),
+                'picsum_link' => $this->localizationService->translate('app.picsum_link'),
+                'papirus_link' => $this->localizationService->translate('app.papirus_link'),
+                'github_link' => $this->localizationService->translate('app.github_link'),
+                'uploaded' => $this->localizationService->translate('app.uploaded'),
+                'upload_failed' => $this->localizationService->translate('app.upload_failed'),
+                'error_deleting' => $this->localizationService->translate('app.error_deleting'),
+                'separator' => $this->localizationService->translate('app.separator')
+            ],
+            'success' => [
+                'upload_complete' => $this->localizationService->translate('success.upload_complete')
             ]
         ];
     }

@@ -37,7 +37,10 @@ return [
         'upload_failed' => 'Upload failed',
         'network_error' => 'Network error',
         'method_not_allowed' => 'Method not allowed',
-        'not_found' => 'Not found'
+        'not_found' => 'Not found',
+        'page_not_found' => 'Page Not Found',
+        'page_not_found_description' => 'The page you are looking for does not exist or has been moved.',
+        'back_to_home' => 'Back to Home'
     ],
     'success' => [
         'upload_complete' => 'Upload completed successfully',

@@ -43,7 +43,8 @@ switch ($requestUri) {
             $response = $controller->download($matches[1]);
             $response->send();
         } else {
-            $response = new Response('Not Found', 404);
+            $controller = new App\Controllers\ErrorController();
+            $response = $controller->notFound();
             $response->send();
         }
         break;

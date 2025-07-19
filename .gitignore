@@ -1,3 +1,117 @@
-/vendor
-/uploads
-/data
+# ==============================================
+# .gitignore - Projet de Partage de Fichiers
+# Structure organisée: app/ docs/ dev-tools/
+# ==============================================
+
+# =====================================
+# DONNÉES UTILISATEUR & TEMPORAIRES
+# =====================================
+
+# Fichiers uploadés par les utilisateurs (données sensibles)
+uploads/
+app/uploads/
+
+# Base de données SQLite avec données utilisateur
+app/data/files.db
+
+# =====================================
+# DÉPENDANCES & GÉNÉRATION AUTOMATIQUE  
+# =====================================
+
+# Dépendances Composer
+app/vendor/
+app/composer.lock
+
+# Cache Composer
+.composer/
+
+# =====================================
+# ENVIRONNEMENTS DE DÉVELOPPEMENT
+# =====================================
+
+# IDE / Éditeurs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# PhpStorm
+.phpstorm.meta.php
+
+# =====================================
+# TESTS & DÉVELOPPEMENT
+# =====================================
+
+# Sorties de tests
+dev-tools/phpunit_output.txt
+dev-tools/.phpunit.cache/
+dev-tools/coverage/
+
+# Fichiers de test temporaires
+dev-tools/tests/test_uploads*/
+/tmp/test_*
+/tmp/cookies.txt
+/tmp/*response*.html
+/tmp/*response*.json
+
+# Logs de serveur de développement
+*.log
+dev-tools/*.log
+
+# =====================================
+# SYSTÈME & TEMPORAIRES
+# =====================================
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Fichiers temporaires
+*.tmp
+*.temp
+*.pid
+
+# Sauvegarde des éditeurs
+*.bak
+*.backup
+
+# =====================================
+# DÉPLOIEMENT & PRODUCTION
+# =====================================
+
+# Variables d'environnement (si utilisées)
+.env
+.env.local
+.env.production
+
+# Certificats SSL
+*.pem
+*.key
+*.crt
+
+# =====================================
+# LOGS & SURVEILLANCE
+# =====================================
+
+# Logs d'application
+logs/
+*.log
+
+# Monitoring
+monitoring/
+
+# =====================================
+# NOTES DE DÉVELOPPEMENT
+# =====================================
+
+# Notes personnelles du développeur
+TODO.md
+NOTES.md
+dev-notes/
+
+# Fichiers de travail temporaires
+scratch/
+temp/
+working/

@@ -37,7 +37,10 @@ return [
         'upload_failed' => 'فشل في الرفع',
         'network_error' => 'خطأ في الشبكة',
         'method_not_allowed' => 'الطريقة غير مسموحة',
-        'not_found' => 'غير موجود'
+        'not_found' => 'غير موجود',
+        'page_not_found' => 'الصفحة غير موجودة',
+        'page_not_found_description' => 'الصفحة التي تبحث عنها غير موجودة أو تم نقلها.',
+        'back_to_home' => 'العودة إلى الصفحة الرئيسية'
     ],
     'success' => [
         'upload_complete' => 'تم الرفع بنجاح',

@@ -21,8 +21,7 @@ class HomeController
     private function createHomeService(): HomeService
     {
         $baseHost = (isset($_SERVER['HTTPS']) ? 'https' : 'http')
-                  . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost')
-                  . rtrim(dirname($_SERVER['PHP_SELF'] ?? '/'), '/');
+                  . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost');
         
         $localizationService = new LocalizationService();
         

@@ -35,7 +35,10 @@ return [
         'upload_failed' => 'Falló la subida',
         'network_error' => 'Error de red',
         'method_not_allowed' => 'Método no permitido',
-        'not_found' => 'No encontrado'
+        'not_found' => 'No encontrado',
+        'page_not_found' => 'Página No Encontrada',
+        'page_not_found_description' => 'La página que buscas no existe o ha sido movida.',
+        'back_to_home' => 'Volver al Inicio'
     ],
     'success' => [
         'upload_complete' => 'Subida completada exitosamente',

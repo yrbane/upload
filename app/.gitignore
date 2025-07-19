@@ -1,0 +1,23 @@
+# ========================================
+# .gitignore - Application de Partage de Fichiers
+# ========================================
+
+# Dépendances Composer (régénérables)
+/vendor/
+/composer.lock
+
+# Données utilisateur (sensibles)
+/uploads/*
+!/uploads/.gitkeep
+
+# Base de données avec données utilisateur
+/data/files.db
+
+# Fichiers temporaires d'application
+*.tmp
+*.log
+*.pid
+
+# Configuration locale (si utilisée)
+.env
+.env.local

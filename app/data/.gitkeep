@@ -1,0 +1,5 @@
+# Ce fichier permet de conserver le dossier data/ dans Git.
+# 
+# Le dossier data/ est nécessaire pour stocker la base SQLite
+# mais le fichier files.db (avec données utilisateur) ne doit
+# pas être versionné.

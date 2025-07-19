@@ -31,6 +31,7 @@ sudo chmod 755 uploads data
 - **PHP syntax check**: `php -l src/**/*.php`
 - **Dependencies**: `composer validate`
 - **Tests**: `vendor/bin/phpunit`
+- **Full application test**: `./test_server.sh` (automated testing script)
 
 ## Architecture
 
@@ -40,6 +41,7 @@ sudo chmod 755 uploads data
   - `UploadController`: File upload processing  
   - `FileController`: File download/serving
   - `DeleteController`: File deletion
+  - `ErrorController`: Error pages (404, etc.) with internationalization
 - **Models** (`src/Models/`): Business logic and data handling
   - `FileUploader`: Orchestrates upload workflow
   - `UrlShortener`: SQLite-based URL shortening with hash generation
@@ -59,6 +61,7 @@ Simple router in `public/index.php` handles:
 - `/upload` (POST) → File upload processing
 - `/f/{hash}` → File download by short URL
 - `/delete` (POST) → File deletion
+- `*` (404) → Error page with multilingual support
 
 ### Key Features
 - **File Storage**: Configurable via `StorageInterface` (default: `LocalStorage`)
@@ -66,6 +69,7 @@ Simple router in `public/index.php` handles:
 - **User Tracking**: HTTP-only cookies track uploaded files (30-day expiry)
 - **Security**: CSRF tokens, file size limits (3GB), MIME type validation
 - **Internationalization**: 8 language support with automatic detection
+- **Error Handling**: Custom 404 pages with consistent design and translations
 - **Database**: SQLite with auto-migration for schema updates
 - **Service Layer**: Clean architecture with dependency injection
 
@@ -128,6 +132,9 @@ return [
     'error' => [
         'file_not_found' => 'File not found',
         'file_too_large' => 'File is too large (max {size})',
+        'page_not_found' => 'Page Not Found',
+        'page_not_found_description' => 'The page you are looking for does not exist or has been moved.',
+        'back_to_home' => 'Back to Home',
         // ... more error messages
     ],
     'success' => [
@@ -169,3 +176,4 @@ This project follows **Test-Driven Development (TDD)** principles:
 - Mock external dependencies (database, filesystem, HTTP)
 - Test both success and failure scenarios
 - Aim for high code coverage
+- Use `./test_server.sh` for full application integration testing (upload, download, delete, 404)

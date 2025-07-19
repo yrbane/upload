@@ -37,7 +37,10 @@ return [
         'upload_failed' => 'Falha no envio',
         'network_error' => 'Erro de rede',
         'method_not_allowed' => 'Método não permitido',
-        'not_found' => 'Não encontrado'
+        'not_found' => 'Não encontrado',
+        'page_not_found' => 'Página não encontrada',
+        'page_not_found_description' => 'A página que você está procurando não existe ou foi movida.',
+        'back_to_home' => 'Voltar ao início'
     ],
     'success' => [
         'upload_complete' => 'Envio concluído com sucesso',

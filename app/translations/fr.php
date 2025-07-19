@@ -37,7 +37,10 @@ return [
         'upload_failed' => 'Échec du téléversement',
         'network_error' => 'Erreur réseau',
         'method_not_allowed' => 'Méthode non autorisée',
-        'not_found' => 'Non trouvé'
+        'not_found' => 'Non trouvé',
+        'page_not_found' => 'Page non trouvée',
+        'page_not_found_description' => 'La page que vous recherchez n\'existe pas ou a été déplacée.',
+        'back_to_home' => 'Retour à l\'accueil'
     ],
     'success' => [
         'upload_complete' => 'Téléversement terminé avec succès',

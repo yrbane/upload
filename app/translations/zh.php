@@ -37,7 +37,10 @@ return [
         'upload_failed' => '上传失败',
         'network_error' => '网络错误',
         'method_not_allowed' => '方法不允许',
-        'not_found' => '未找到'
+        'not_found' => '未找到',
+        'page_not_found' => '页面未找到',
+        'page_not_found_description' => '您要查找的页面不存在或已被移动。',
+        'back_to_home' => '返回首页'
     ],
     'success' => [
         'upload_complete' => '上传成功完成',
