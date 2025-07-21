@@ -3,6 +3,11 @@ declare(strict_types=1);
 
 session_start();
 
+if(in_array($_SERVER['REMOTE_ADDR'],['89.83.35.79','127.0.0.1']) && !isset($_COOKIE['alowed'])){
+    setcookie('alowed',sha1($_SERVER['REMOTE_ADDR']));
+    header('Location: /');
+}
+
 require __DIR__ . '/../vendor/autoload.php';
 
 use App\Http\Response;
@@ -13,9 +18,11 @@ $requestMethod = $_SERVER['REQUEST_METHOD'];
 // Simple router
 switch ($requestUri) {
     case '/':
-        $controller = new App\Controllers\HomeController();
-        $response = $controller->index();
-        $response->send();
+        if(isset($_COOKIE['alowed']) && sha1($_SERVER['REMOTE_ADDR'])==$_COOKIE['alowed']){
+            $controller = new App\Controllers\HomeController();
+            $response = $controller->index();
+            $response->send();
+        }
         break;
     case '/upload':
         if ($requestMethod === 'POST') {

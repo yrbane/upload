@@ -1,52 +1,70 @@
-# 📁 Projet de Partage de Fichiers
+# Application de Partage de Fichiers
 
-Structure organisée du projet séparant clairement le code utile des outils de développement.
+## 🚀 Code de l'Application
 
-## 🗂️ Organisation
+Ce dossier contient uniquement le code utile de l'application de partage de fichiers.
 
-### 🚀 [`app/`](./app/) - **Application Production**
-Code source complet de l'application prêt pour la production :
-- Code PHP MVC complet
-- Interface web responsive
-- 8 langues supportées
-- Configuration et dépendances
+### 📁 Structure
 
-👉 **[Voir le README de l'application](./app/README.md)**
-
-### 📚 [`docs/`](./docs/) - **Documentation**
-- `CLAUDE.md` - Guide pour Claude Code
-- `README.md` - Documentation générale
-- `LICENCE.md` - Licence du projet
-- Guides d'installation et d'utilisation
-
-### 🧪 [`dev-tools/`](./dev-tools/) - **Outils de Développement**
-- Tests unitaires PHPUnit
-- Script de test d'intégration (`test_server.sh`)
-- Scanners de sécurité
-- Configuration de tests
-
-### 🗃️ [`uploads/`](./uploads/) - **Données Utilisateur**
-Fichiers uploadés par les utilisateurs (données temporaires)
+```
+app/
+├── src/                    # Code source PHP
+│   ├── Controllers/        # Contrôleurs MVC
+│   ├── Http/              # Classes de réponse HTTP
+│   ├── Models/            # Modèles de données
+│   ├── Security/          # Classes de sécurité
+│   ├── Services/          # Services métier
+│   └── Views/             # Vues HTML
+├── public/                # Point d'entrée web
+│   ├── index.php          # Routeur principal
+│   ├── css/               # Styles CSS
+│   └── js/                # JavaScript
+├── translations/          # Fichiers de traduction (8 langues)
+├── data/                  # Base de données SQLite
+├── uploads/               # Fichiers uploadés (créé automatiquement)
+├── composer.json          # Dépendances PHP
+└── vendor/                # Dépendances installées (généré)
+```
 
 ## 🏃‍♂️ Démarrage Rapide
 
-```bash
-cd app/
-composer install
-php -S localhost:8000 -t public/
-```
+1. **Installation des dépendances** :
+   ```bash
+   cd app/
+   composer install
+   ```
 
-## 🧪 Tests
+2. **Permissions** :
+   ```bash
+   chmod 755 uploads data
+   ```
 
-```bash
-cd dev-tools/
-./test_server.sh  # Test d'intégration complet
-phpunit           # Tests unitaires
-```
+3. **Lancement** :
+   ```bash
+   php -S localhost:8000 -t public/
+   ```
 
-## 🎯 Utilisation
+4. **Accès** : http://localhost:8000
 
-- **Développement** : Travaillez dans `app/`
-- **Tests** : Utilisez `dev-tools/`
-- **Documentation** : Consultez `docs/`
-- **Production** : Déployez uniquement `app/`
+## 🔧 Configuration
+
+- **Upload maximal** : 3GB
+- **Langues supportées** : FR, EN, ES, DE, IT, PT, AR, ZH
+- **Base de données** : SQLite (`data/files.db`)
+- **Stockage** : Local (`uploads/`)
+
+## 📝 Fonctionnalités
+
+- ✅ Upload par glisser-déposer
+- ✅ URLs courtes pour partage
+- ✅ Suivi des fichiers par cookies
+- ✅ Suppression sécurisée
+- ✅ Interface multilingue
+- ✅ Page 404 personnalisée
+- ✅ Protection CSRF
+- ✅ Validation MIME
+
+## 🛠️ Développement
+
+Pour les tests et outils de développement, voir le dossier `../dev-tools/`.
+Pour la documentation complète, voir le dossier `../docs/`.

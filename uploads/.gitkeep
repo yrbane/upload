@@ -1,0 +1,6 @@
+# Ce fichier permet de conserver le dossier uploads/ dans Git
+# même quand il est vide.
+# 
+# Le dossier uploads/ est nécessaire pour le fonctionnement
+# de l'application mais son contenu (fichiers utilisateur)
+# ne doit pas être versionné.

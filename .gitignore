@@ -1,117 +1,23 @@
-# ==============================================
-# .gitignore - Projet de Partage de Fichiers
-# Structure organisée: app/ docs/ dev-tools/
-# ==============================================
+# ========================================
+# .gitignore - Application de Partage de Fichiers
+# ========================================
 
-# =====================================
-# DONNÉES UTILISATEUR & TEMPORAIRES
-# =====================================
+# Dépendances Composer (régénérables)
+/vendor/
+/composer.lock
 
-# Fichiers uploadés par les utilisateurs (données sensibles)
-uploads/
-app/uploads/
+# Données utilisateur (sensibles)
+/uploads/*
+!/uploads/.gitkeep
 
-# Base de données SQLite avec données utilisateur
-app/data/files.db
+# Base de données avec données utilisateur
+/data/files.db
 
-# =====================================
-# DÉPENDANCES & GÉNÉRATION AUTOMATIQUE  
-# =====================================
-
-# Dépendances Composer
-app/vendor/
-app/composer.lock
-
-# Cache Composer
-.composer/
-
-# =====================================
-# ENVIRONNEMENTS DE DÉVELOPPEMENT
-# =====================================
-
-# IDE / Éditeurs
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# PhpStorm
-.phpstorm.meta.php
-
-# =====================================
-# TESTS & DÉVELOPPEMENT
-# =====================================
-
-# Sorties de tests
-dev-tools/phpunit_output.txt
-dev-tools/.phpunit.cache/
-dev-tools/coverage/
-
-# Fichiers de test temporaires
-dev-tools/tests/test_uploads*/
-/tmp/test_*
-/tmp/cookies.txt
-/tmp/*response*.html
-/tmp/*response*.json
-
-# Logs de serveur de développement
-*.log
-dev-tools/*.log
-
-# =====================================
-# SYSTÈME & TEMPORAIRES
-# =====================================
-
-# Fichiers système
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# Fichiers temporaires
+# Fichiers temporaires d'application
 *.tmp
-*.temp
+*.log
 *.pid
 
-# Sauvegarde des éditeurs
-*.bak
-*.backup
-
-# =====================================
-# DÉPLOIEMENT & PRODUCTION
-# =====================================
-
-# Variables d'environnement (si utilisées)
+# Configuration locale (si utilisée)
 .env
 .env.local
-.env.production
-
-# Certificats SSL
-*.pem
-*.key
-*.crt
-
-# =====================================
-# LOGS & SURVEILLANCE
-# =====================================
-
-# Logs d'application
-logs/
-*.log
-
-# Monitoring
-monitoring/
-
-# =====================================
-# NOTES DE DÉVELOPPEMENT
-# =====================================
-
-# Notes personnelles du développeur
-TODO.md
-NOTES.md
-dev-notes/
-
-# Fichiers de travail temporaires
-scratch/
-temp/
-working/
