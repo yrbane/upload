@@ -401,7 +401,7 @@ progress {
     display: flex;
     justify-content: space-between;
     padding: 20px;
-    z-index: 1000;
+    z-index: 0;
 }
 
 .footer-left,
