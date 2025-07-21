@@ -41,12 +41,10 @@
       <a href="https://picsum.photos/" target="_blank" class="footer-link">
         <span class="icon icon-image"></span> <?= htmlspecialchars($translations['app']['picsum_link']) ?>
       </a>
-      <a href="https://github.com/PapirusDevelopmentTeam/papirus-icon-theme" target="_blank" class="footer-link">
-        <span class="icon icon-paint-brush"></span> <?= htmlspecialchars($translations['app']['papirus_link']) ?>
-      </a>
+      
     </div>
     <div class="footer-right">
-      <a href="https://github.com/anthropics/claude-code" target="_blank" class="footer-link">
+      <a href="https://github.com/yrbane/upload" target="_blank" class="footer-link">
         <span class="icon icon-github"></span> <?= htmlspecialchars($translations['app']['github_link']) ?>
       </a>
     </div>
