@@ -1,10 +1,14 @@
 <?php
 declare(strict_types=1);
 
+include_once '../config.php';
+
 session_start();
 
-if(in_array($_SERVER['REMOTE_ADDR'],['89.83.35.79','127.0.0.1']) && !isset($_COOKIE['alowed'])){
-    setcookie('alowed',sha1($_SERVER['REMOTE_ADDR']));
+$sha1ip = sha1($_SERVER['REMOTE_ADDR']);
+
+if(in_array($_SERVER['REMOTE_ADDR'],$config['allowed_ips']) && !isset($_COOKIE[$sha1ip])){
+    setcookie($sha1ip ,sha1($sha1ip));
     header('Location: /');
 }
 
@@ -18,10 +22,13 @@ $requestMethod = $_SERVER['REQUEST_METHOD'];
 // Simple router
 switch ($requestUri) {
     case '/':
-        if(isset($_COOKIE['alowed']) && sha1($_SERVER['REMOTE_ADDR'])==$_COOKIE['alowed']){
+        if(isset($_COOKIE[$sha1ip]) && sha1($sha1ip)==$_COOKIE[$sha1ip]){
             $controller = new App\Controllers\HomeController();
             $response = $controller->index();
             $response->send();
+        }
+        else{
+            echo $_SERVER['REMOTE_ADDR'];die();
         }
         break;
     case '/upload':
