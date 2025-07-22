@@ -5,12 +5,12 @@ include_once '../config.php';
 
 session_start();
 
-$sha1ip = sha1($_SERVER['REMOTE_ADDR']);
+/*$sha1ip = sha1($_SERVER['REMOTE_ADDR']);
 
 if(in_array($_SERVER['REMOTE_ADDR'],$config['allowed_ips']) && !isset($_COOKIE[$sha1ip])){
     setcookie($sha1ip ,sha1($sha1ip));
     header('Location: /');
-}
+}*/
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -22,14 +22,14 @@ $requestMethod = $_SERVER['REQUEST_METHOD'];
 // Simple router
 switch ($requestUri) {
     case '/':
-        if(isset($_COOKIE[$sha1ip]) && sha1($sha1ip)==$_COOKIE[$sha1ip]){
+        //if(isset($_COOKIE[$sha1ip]) && sha1($sha1ip)==$_COOKIE[$sha1ip]){
             $controller = new App\Controllers\HomeController();
             $response = $controller->index();
             $response->send();
-        }
-        else{
-            echo $_SERVER['REMOTE_ADDR'];die();
-        }
+        //}
+        //else{
+        //    echo $_SERVER['REMOTE_ADDR'];die();
+        //}
         break;
     case '/upload':
         if ($requestMethod === 'POST') {

@@ -47,7 +47,7 @@
   </div>
 
   <!-- Footer Links -->
-  <div class="footer-links">
+  <!-- div class="footer-links">
     <div class="footer-left">
       <a href="https://picsum.photos/" target="_blank" class="footer-link">
         <span class="icon icon-image"></span> <?= htmlspecialchars($translations['app']['picsum_link']) ?>
@@ -59,7 +59,7 @@
         <span class="icon icon-github"></span> <?= htmlspecialchars($translations['app']['github_link']) ?>
       </a>
     </div>
-  </div>
+  </div -->
 
   <input type="hidden" id="csrfToken" value="<?php echo htmlspecialchars(
        $_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'
